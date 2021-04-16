@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.it.dao.JobfairMapper" >
+  <resultMap id="BaseResultMap" type="cn.it.pojo.Jobfair" >
+    <id column="jobFairId" property="jobfairid" jdbcType="INTEGER" />
+    <result column="jobFairName" property="jobfairname" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    jobFairId, jobFairName, date, place
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.it.pojo.JobfairExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jobfair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jobfair
+    where jobFairId = #{jobfairid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jobfair
+    where jobFairId = #{jobfairid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.it.pojo.JobfairExample" >
+    delete from jobfair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.it.pojo.Jobfair" >
+    insert into jobfair (jobFairId, jobFairName, date, 
+      place)
+    values (#{jobfairid,jdbcType=INTEGER}, #{jobfairname,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
+      #{place,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.it.pojo.Jobfair" >
+    insert into jobfair
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jobfairid != null" >
+        jobFairId,
+      </if>
+      <if test="jobfairname != null" >
+        jobFairName,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jobfairid != null" >
+        #{jobfairid,jdbcType=INTEGER},
+      </if>
+      <if test="jobfairname != null" >
+        #{jobfairname,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.it.pojo.JobfairExample" resultType="java.lang.Integer" >
+    select count(*) from jobfair
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jobfair
+    <set >
+      <if test="record.jobfairid != null" >
+        jobFairId = #{record.jobfairid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobfairname != null" >
+        jobFairName = #{record.jobfairname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.place != null" >
+        place = #{record.place,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jobfair
+    set jobFairId = #{record.jobfairid,jdbcType=INTEGER},
+      jobFairName = #{record.jobfairname,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=DATE},
+      place = #{record.place,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.it.pojo.Jobfair" >
+    update jobfair
+    <set >
+      <if test="jobfairname != null" >
+        jobFairName = #{jobfairname,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jobFairId = #{jobfairid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.it.pojo.Jobfair" >
+    update jobfair
+    set jobFairName = #{jobfairname,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      place = #{place,jdbcType=VARCHAR}
+    where jobFairId = #{jobfairid,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="jobFairAndDocumentMap" type="cn.it.pojo.Jobfair">
+    <id property="jobfairid" column="jobfairid"/>
+    <result property="jobfairname" column="jobfairname"/>
+    <result property="date" column="date"/>
+    <result property="place" column="place"/>
+    <association property="document" javaType="cn.it.pojo.Document">
+      <id property="documentid" column="documentid"/>
+      <result property="documentname" column="documentname"/>
+      <result property="jobfairid" column="id"/>
+    </association>
+  </resultMap>
+
+  <select id="selectJobFairAndDocument" resultMap="jobFairAndDocumentMap">
+    select a.*,documentid,documentname,b.jobfairid id from jobfair a,document b where a.jobfairid = b.jobfairid
+  </select>
+
+  <select id="selectFive" resultType="cn.it.pojo.Jobfair">
+    select jobfairid,jobfairname from jobfair limit 5
+  </select>
+</mapper>

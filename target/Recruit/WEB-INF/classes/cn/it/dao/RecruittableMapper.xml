@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.it.dao.RecruittableMapper">
+    <resultMap id="BaseResultMap" type="cn.it.pojo.Recruittable">
+        <id column="recruitId" property="recruitid" jdbcType="INTEGER"/>
+        <result column="position" property="position" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="DATE"/>
+        <result column="introduce" property="introduce" jdbcType="VARCHAR"/>
+        <result column="salary" property="salary" jdbcType="VARCHAR"/>
+        <result column="location" property="location" jdbcType="VARCHAR"/>
+        <result column="userName" property="username" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        recruitId
+        , position, time, introduce, salary, location, userName
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.it.pojo.RecruittableExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from recruittable
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from recruittable
+        where recruitId = #{recruitid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from recruittable
+        where recruitId = #{recruitid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="cn.it.pojo.RecruittableExample">
+        delete from recruittable
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="cn.it.pojo.Recruittable">
+        insert into recruittable (recruitId, position, time,
+                                  introduce, salary, location,
+                                  userName)
+        values (#{recruitid,jdbcType=INTEGER}, #{position,jdbcType=VARCHAR}, #{time,jdbcType=DATE},
+                #{introduce,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR},
+                #{username,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.it.pojo.Recruittable">
+        insert into recruittable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recruitid != null">
+                recruitId,
+            </if>
+            <if test="position != null">
+                position,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="introduce != null">
+                introduce,
+            </if>
+            <if test="salary != null">
+                salary,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="username != null">
+                userName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recruitid != null">
+                #{recruitid,jdbcType=INTEGER},
+            </if>
+            <if test="position != null">
+                #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=DATE},
+            </if>
+            <if test="introduce != null">
+                #{introduce,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                #{salary,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="cn.it.pojo.RecruittableExample" resultType="java.lang.Integer">
+        select count(*) from recruittable
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update recruittable
+        <set>
+            <if test="record.recruitid != null">
+                recruitId = #{record.recruitid,jdbcType=INTEGER},
+            </if>
+            <if test="record.position != null">
+                position = #{record.position,jdbcType=VARCHAR},
+            </if>
+            <if test="record.time != null">
+                time = #{record.time,jdbcType=DATE},
+            </if>
+            <if test="record.introduce != null">
+                introduce = #{record.introduce,jdbcType=VARCHAR},
+            </if>
+            <if test="record.salary != null">
+                salary = #{record.salary,jdbcType=VARCHAR},
+            </if>
+            <if test="record.location != null">
+                location = #{record.location,jdbcType=VARCHAR},
+            </if>
+            <if test="record.username != null">
+                userName = #{record.username,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update recruittable
+        set recruitId = #{record.recruitid,jdbcType=INTEGER},
+        position = #{record.position,jdbcType=VARCHAR},
+        time = #{record.time,jdbcType=DATE},
+        introduce = #{record.introduce,jdbcType=VARCHAR},
+        salary = #{record.salary,jdbcType=VARCHAR},
+        location = #{record.location,jdbcType=VARCHAR},
+        userName = #{record.username,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.it.pojo.Recruittable">
+        update recruittable
+        <set>
+            <if test="position != null">
+                position = #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=DATE},
+            </if>
+            <if test="introduce != null">
+                introduce = #{introduce,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                salary = #{salary,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                userName = #{username,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where recruitId = #{recruitid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.it.pojo.Recruittable">
+        update recruittable
+        set position  = #{position,jdbcType=VARCHAR},
+            time      = #{time,jdbcType=DATE},
+            introduce = #{introduce,jdbcType=VARCHAR},
+            salary    = #{salary,jdbcType=VARCHAR},
+            location  = #{location,jdbcType=VARCHAR},
+            userName  = #{username,jdbcType=VARCHAR}
+        where recruitId = #{recruitid,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectRecruitAndRole" parameterType="cn.it.vo.RecruitVoPre" resultType="cn.it.vo.RecruitVo">
+        <if test="username!=null">
+            select DISTINCT a.*, role
+            from recruitTable a,
+            user b
+            <where>
+                <if test="recruitid != null">
+                    and recruitid = #{recruitid} and role = (select role from user where username = #{username})
+                </if>
+
+            </where>
+        </if>
+        <if test="username == null">
+            select DISTINCT a.*, role
+            from recruitTable a,
+            user b
+            <where>
+                <if test="recruitid != null">
+                    and recruitid = #{recruitid} and a.username = b.username
+                </if>
+
+            </where>
+        </if>
+
+    </select>
+
+    <resultMap id="RecruitAndStatusMap" type="cn.it.pojo.Recruittable">
+        <id property="recruitid" column="recruitid"/>
+        <id property="status.username" column="name"/>
+        <result property="position" column="position"/>
+        <result property="introduce" column="introduce"/>
+        <result property="salary" column="salary"/>
+        <result property="location" column="location"/>
+        <result property="username" column="username"/>
+
+        <association property="status" javaType="cn.it.pojo.Status">
+            <id property="recruitid" column="id"/>
+            <id property="username" column="name"/>
+            <result property="status" column="status"/>
+            <result property="start" column="start"/>
+            <result property="end" column="end"/>
+        </association>
+    </resultMap>
+    <select id="getRecruitIncludeStatus" parameterType="cn.it.pojo.User" resultMap="RecruitAndStatusMap">
+        select a.*, b.recruitid id, status, start, end, b.username name
+        from recruittable a, status b where a.recruitid = b.recruitid
+        <if test="role == 1">
+            and b.username = #{username}
+        </if>
+        <if test="role == 2">
+            and a.username = #{username} and b.status='waiting'
+        </if>
+
+    </select>
+
+    <select id="selectFive" resultType="cn.it.pojo.Recruittable">
+        select recruitid,position from recruittable limit 5
+    </select>
+</mapper>
