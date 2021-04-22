@@ -23,6 +23,8 @@ public class IndexController {
     private MessageService messageService;
     @Resource(name="documentService")
     private DocumentService documentService;
+    @Resource(name="userService")
+    private UserService userService;
     @RequestMapping("/index")
     public String showIndex(HttpServletRequest request) throws Exception{
         List<News> newsList = newsService.getAll();
@@ -43,6 +45,9 @@ public class IndexController {
         session.setAttribute("newsList1",newsList1);
         session.setAttribute("jobFairList1",jobFairList1);
         session.setAttribute("recruitList1",recruitList1);
+
+        List<User> userList = userService.getAll();
+        session.setAttribute("userList",userList);
         return "index";
     }
 }

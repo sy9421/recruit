@@ -66,6 +66,9 @@
         <div class="left-list-item" url="${base_url }/statics/dist/admin/message.jsp" title="留言管理">
             <a class="easyui-linkbutton" plain="true">留言管理</a>
         </div>
+        <div class="left-list-item" url="${base_url }/statics/dist/admin/user.jsp" title="用户管理">
+            <a class="easyui-linkbutton" plain="true">用户管理</a>
+        </div>
 
     </div>
 

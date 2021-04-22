@@ -74,7 +74,7 @@
                             </div>
                             <div class="form-group ">
                                 <div class="col-sm-6 col-sm-offset-1">
-                                    <button type="submit" class="btn btn-primary btn-block">留言</button>
+                                    <button type="submit" class="btn btn-primary btn-block" onclick="javascript:return alert('提交后需审核通过后才可显示');">留言</button>
                                 </div>
                             </div>
                         </form>

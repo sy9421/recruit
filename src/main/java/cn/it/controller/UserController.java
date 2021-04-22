@@ -9,6 +9,7 @@ import cn.it.service.ResumeService;
 import cn.it.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -126,5 +127,13 @@ public class UserController {
         String username = (String)session.getAttribute("username");
         User user = userService.findUserByName(username);
         return user;
+    }
+    @RequestMapping("deleteUser/{username}")
+    public String deleteUser(@PathVariable("username") String userName,HttpServletRequest request) throws Exception{
+        userService.deleteUser(userName);
+        HttpSession session = request.getSession();
+        List<User> userList = userService.getAll();
+        session.setAttribute("userList",userList);
+        return "redirect:/statics/dist/admin/user.jsp";
     }
 }

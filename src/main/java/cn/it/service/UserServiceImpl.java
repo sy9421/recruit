@@ -2,9 +2,11 @@ package cn.it.service;
 
 import cn.it.dao.UserMapper;
 import cn.it.pojo.User;
+import cn.it.pojo.UserExample;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
@@ -24,6 +26,17 @@ public class UserServiceImpl implements UserService{
     }
     public int updateUser(User user) throws Exception{
         int rs = userMapper.updateByPrimaryKeySelective(user);
+        return rs;
+    }
+    public List<User> getAll() throws Exception{
+        UserExample example = new UserExample();
+        List<User> userList = userMapper.selectByExample(example);
+        return userList;
+    }
+
+    @Override
+    public int deleteUser(String userName) throws Exception {
+        int rs = userMapper.deleteByPrimaryKey(userName);
         return rs;
     }
 }
